@@ -1,22 +1,29 @@
-jsruntime.vim
+jsruntime.vim (Javascript runtime in Vim)
 =============
 
-一个vim里的javascript解释器，它使用[PyV8](http://code.google.com/p/pyv8/)作为解释引擎，同时它还创建了一个浏览器的上下文环境，可以让你直接在vim里运行html代码。
+It use [PyV8](http://code.google.com/p/pyv8/) as javascript interpreter. if PyV8 not supported, it use node, cscript, spiderMonkey as fallbacks. 
 
-A javascript runtime environment in vim, it use PyV8 as interpreter, and aslo create a browser-based context to execute javascript code
-
-使用说明(Usage)
+Documentation
 -------------
-1. 拷贝plugin下的文件到 vimfiles\plugin 下
 
-2. 添加如下代码到你的 vimrc
+It provide the following functions
 
-        au FileType html source $VIM\vimfiles\plugin\jsruntime.vim
-        au FileType javascript source $VIM\vimfiles\plugin\jsruntime.vim
+1. b:jsruntimeEvalScript({script}, {renew_context})
 
-命令(Command)
--------------
-    :RunJS 执行当前buffer中的js代码
-    :RunJSBlock {range} 执行当前buffer中的js代码块，如:RunJSBlock 3,9执行第3-9行的代码
-    :RunHtml 在模拟浏览器环境中执行js代码
-    :RunHtmlBlock {range} 在模拟浏览器环境中执行js代码块
+        :echo b:jsruntimeEvalScript('1+2')
+        // output 3
+    
+    __renew\_context__ is a flag to indicate whether keep the context created by script before
+        
+        :call b:jsruntimeEvalScript('a=3')  // we create a context
+        :echo b:jsruntimeEvalScript('a;') // we eval this script in context created before
+        // output 1
+        :echo b:jsruntimeEvalScript('a;',1) // we eval this script in new context
+        // output undefined
+   
+    renew\_context is not guaranted support, if not support renew\_context will always be 1, you can use __b:jsruntime_support_living_context__ to detect that
+
+2. b:jsruntimeEvalScriptInBrowserContext
+
+        :call b:jsruntimeEvalScriptInBrowserContext('<html><body onload="console.log(1+2);"><p></p></body></html>')
+        //output 3

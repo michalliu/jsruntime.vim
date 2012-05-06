@@ -106,6 +106,13 @@ else
 
 endif
 
+" expose to other plugin to know
+if s:js_interpreter == 'pyv8'
+	let b:jsruntime_support_living_context = 1
+else
+	let b:jsruntime_support_living_context = 0
+endif
+
 " let s:js_interpreter='cscript /NoLogo'
 " let s:runjs_ext='wsf'
 "
@@ -113,14 +120,20 @@ if !exists('b:jsruntimeEvalScript')
     function b:jsruntimeEvalScript(script,...)
         let l:result=''
         if !exists("a:1")
-            let l:spawn_context = 0
+            let l:renew_context = 0
         else
-            let l:spawn_context = a:1
+            let l:renew_context = a:1
         endif
+
+		if !b:jsruntime_support_living_context
+            let l:renew_context = 0
+		endif
+
+		" pyv8 eval
         if s:js_interpreter == 'pyv8'
     python << EOF
 import vim,json
-if int(vim.eval('l:spawn_context')) and jsRuntimeVim:
+if int(vim.eval('l:renew_context')) and jsRuntimeVim:
     #print 'context cleared'
     jsRuntimeVim.context.leave()
     jsRuntimeVim = VimJavascriptRuntime()

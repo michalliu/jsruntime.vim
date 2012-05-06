@@ -15,10 +15,10 @@ It provide the following functions
     
    is_renew_context is a flag to indicate whether keep the context created by script before
         
-        :call b:jsruntimeEvalScript('a=1')
-        :call b:jsruntimeEvalScript('console.log(a)')
+        :call b:jsruntimeEvalScript('a=1')  // we create a context
+        :call b:jsruntimeEvalScript('console.log(a)') // we eval this script in context created before
         // output 1
-        :call b:jsruntimeEvalScript('console.log(a)')
+        :call b:jsruntimeEvalScript('console.log(a)',1) // we eval this script in new context
         // output undefined
 
 2. b:jsruntimeEvalScriptInBrowserContext

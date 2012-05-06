@@ -10,15 +10,15 @@ It provide the following functions
 
 1. b:jsruntimeEvalScript({script}, {renew_context})
 
-        :call b:jsruntimeEvalScript('console.log(1+2)')
+        :echo b:jsruntimeEvalScript('1+2')
         // output 3
     
    renew_context is a flag to indicate whether keep the context created by script before
         
-        :call b:jsruntimeEvalScript('a=1')  // we create a context
-        :call b:jsruntimeEvalScript('console.log(a)') // we eval this script in context created before
+        :call b:jsruntimeEvalScript('a=3')  // we create a context
+        :echo b:jsruntimeEvalScript('a;') // we eval this script in context created before
         // output 1
-        :call b:jsruntimeEvalScript('console.log(a)',1) // we eval this script in new context
+        :call b:jsruntimeEvalScript('a;',1) // we eval this script in new context
         // output undefined
 
 2. b:jsruntimeEvalScriptInBrowserContext

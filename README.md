@@ -21,7 +21,8 @@ It provide the following functions
         :echo b:jsruntimeEvalScript('a;',1) // we eval this script in new context
         // output undefined
    
-    renew\_context is not guaranted support, if not supported renew\_context will always be 1, you can use __b:jsruntime_support_living_context__ to detect that
+    renew\_context is not guaranted support, if not support renew\_context will always be 1, you can use __b:jsruntime_support_living_context__ to detect that
+
 2. b:jsruntimeEvalScriptInBrowserContext
 
         :call b:jsruntimeEvalScriptInBrowserContext('<html><body onload="console.log(1+2);"><p></p></body></html>')

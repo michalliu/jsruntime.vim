@@ -15,5 +15,5 @@ It provide the following functions
 
 2. b:jsruntimeEvalScriptInBrowserContext
 
-        :echo b:jsruntimeEvalScriptInBrowserContext('<html><head><script>load=function(){console.log(3);}</script></head><body onload="load"></body></html>')
+        :call b:jsruntimeEvalScriptInBrowserContext('<html><body onload="console.log(1+2);"><p></p></body></html>')
         //output 3

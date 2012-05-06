@@ -18,7 +18,7 @@ It provide the following functions
         :call b:jsruntimeEvalScript('a=3')  // we create a context
         :echo b:jsruntimeEvalScript('a;') // we eval this script in context created before
         // output 1
-        :call b:jsruntimeEvalScript('a;',1) // we eval this script in new context
+        :echo b:jsruntimeEvalScript('a;',1) // we eval this script in new context
         // output undefined
 
 2. b:jsruntimeEvalScriptInBrowserContext

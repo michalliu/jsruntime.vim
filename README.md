@@ -13,7 +13,7 @@ It provide the following functions
         :echo b:jsruntimeEvalScript('1+2')
         // output 3
     
-    renew_context is a flag to indicate whether keep the context created by script before
+    __renew\_context__ is a flag to indicate whether keep the context created by script before
         
         :call b:jsruntimeEvalScript('a=3')  // we create a context
         :echo b:jsruntimeEvalScript('a;') // we eval this script in context created before
@@ -21,7 +21,7 @@ It provide the following functions
         :echo b:jsruntimeEvalScript('a;',1) // we eval this script in new context
         // output undefined
    
-    renew_context only support PyV8, if PyV8 not supported,  renew_context will always be 1, you can use __b:jsruntime_support_living_context__
+    renew\_context only support PyV8, if PyV8 not supported,  renew\_context will always be 1, you can use __b:jsruntime_support_living_context__ to detect that
 2. b:jsruntimeEvalScriptInBrowserContext
 
         :call b:jsruntimeEvalScriptInBrowserContext('<html><body onload="console.log(1+2);"><p></p></body></html>')

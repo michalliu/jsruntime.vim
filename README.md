@@ -8,10 +8,18 @@ Usage
 
 It provide the following functions
 
-1. b:jsruntimeEvalScript
+1. b:jsruntimeEvalScript({script}, {renew_context})
 
-        :echo b:jsruntimeEvalScript('1+2')
-        //output 3
+        :call b:jsruntimeEvalScript('console.log(1+2)')
+        // output 3
+    
+   is_renew_context is a flag to indicate whether keep the context created by script before
+        
+        :call b:jsruntimeEvalScript('a=1')
+        :call b:jsruntimeEvalScript('console.log(a)')
+        // output 1
+        :call b:jsruntimeEvalScript('console.log(a)')
+        // output undefined
 
 2. b:jsruntimeEvalScriptInBrowserContext
 

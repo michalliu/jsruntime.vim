@@ -28,10 +28,13 @@ It provide the following functions
 2. b:jsruntimeEvalScriptInBrowserContext
     
     because we only implement browser interface using PyV8, so if PyV8 is not supported, this function will not exist, check existence before use
+        
         // vim script
         if exists('b:jsruntimeEvalScriptInBrowserContext')
             // do what you like
         endif
 
+    sample
+    
         :call b:jsruntimeEvalScriptInBrowserContext('<html><body onload="console.log(1+2);"><p></p></body></html>')
         //output 3

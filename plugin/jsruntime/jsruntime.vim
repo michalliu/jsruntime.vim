@@ -3,10 +3,12 @@
 "
 " Version: 1.0
 
-if exists("g:loaded_jsruntime")
+let g:loaded_jsruntime = 1
+
+if exists("b:did_jsruntime_plugin")
     finish
 else
-    let g:loaded_jsruntime = 1
+    let b:did_jsruntime_plugin = 1
 endif
 
 let s:install_dir = expand("<sfile>:p:h")

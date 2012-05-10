@@ -38,3 +38,10 @@ It provide the following functions
     
         :call b:jsruntimeEvalScriptInBrowserContext('<html><body onload="console.log(1+2);"><p></p></body></html>')
         //output 3
+
+It aslo provide *g:loaded_jsruntime* to detect whether jsruntime plugin is loaded
+    
+    if !exists("g:loaded_jsruntime")
+        echoerr('jsruntime.vim is required, plz visit http://www.vim.org/scripts/script.php?script_id=4050')
+        finish
+    endif

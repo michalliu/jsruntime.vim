@@ -3,6 +3,11 @@ jsruntime.vim (Javascript runtime in Vim)
 
 It use [PyV8](http://code.google.com/p/pyv8/) as javascript interpreter. if PyV8 not supported, it use node, cscript, spiderMonkey as fallbacks. 
 
+Installation
+-------------
+
+Copy everything inside plugin to __plugin__ directory of your vim
+
 Documentation
 -------------
 

@@ -13,13 +13,23 @@ endif
 
 let s:install_dir = expand("<sfile>:p:h")
 
+" See if we have python and PyV8 is installed
+let s:python_support = 0
+
 if has('python')
+    python << EOF
+try:
+  # PyV8 js runtime
+  from PyV8.PyV8 import *
+  vim.command('let s:python_support = 1')
+EOF
+endif
+
+
+if s:python_support
     python << EOF
 import vim
 sys.path.insert(0, vim.eval('s:install_dir'))
-
-# PyV8 js runtime
-from PyV8.PyV8 import *
 
 class VimJavascriptConsole(JSClass):
 

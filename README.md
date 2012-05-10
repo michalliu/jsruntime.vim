@@ -28,7 +28,7 @@ It provide the following functions
    
     renew\_context is not guaranteed support, if not support renew\_context will always be 1.
     
-    you can use __b:jsruntime_support_living_context__ to check whether living_context is support
+    you can use __g:jsruntime_support_living_context__ to check whether living_context is support
 
 2. b:jsruntimeEvalScriptInBrowserContext
     

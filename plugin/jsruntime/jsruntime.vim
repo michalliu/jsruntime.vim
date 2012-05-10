@@ -149,7 +149,7 @@ else:
 vim.command('let l:result=%s' % json.dumps(ret))
 EOF
         else
-            let s:cmd = s:js_interpreter . ' "' . s:install_dir . '\jsrunner\runjs.' . s:runjs_ext . '"'
+            let s:cmd = s:js_interpreter . ' "' . s:install_dir . '/jsrunner/runjs.' . s:runjs_ext . '"'
             let l:result = system(s:cmd, a:script)
             if v:shell_error
                echoerr 'jsruntime is not working properly. plz visit http://www.vim.org/scripts/script.php?script_id=4050 for more info'

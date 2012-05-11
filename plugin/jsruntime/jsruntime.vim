@@ -18,19 +18,20 @@ let s:python_support = 0
 
 if has('python')
     python << EOF
+import sys,vim
+sys.path.insert(0, vim.eval('s:install_dir'))
+
 try:
   # PyV8 js runtime
   from PyV8.PyV8 import *
   vim.command('let s:python_support = 1')
+except:
+  pass
 EOF
 endif
 
-
 if s:python_support
     python << EOF
-import vim
-sys.path.insert(0, vim.eval('s:install_dir'))
-
 class VimJavascriptConsole(JSClass):
 
     def __init__(self):

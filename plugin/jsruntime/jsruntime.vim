@@ -36,12 +36,10 @@ except ImportError,e:
     err = str(e)
     if err.startswith("libboost_python.so.1.50.0"):
         print "Hint:" 
-        print "(PyV8) - A Javascript interpreter can be enabled by execute"
+        print "(PyV8) - A Javascript interpreter can be enabled by execute the follwing command"
         print " "
         print "sudo ln -s %s /usr/lib" % os.path.join(vim.eval("s:install_dir"),'PyV8','libboost_python.so.1.50.0')
         print " "
-except:
-    pass
 EOF
 endif
 

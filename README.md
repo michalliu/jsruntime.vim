@@ -48,16 +48,16 @@ It aslo provide *g:loaded_jsruntime* to detect whether jsruntime plugin state
 
 1. if *g:loaded_jsruntime* doesn't exists then jsruntime plugin doesn't installed
 
-    if !exists("g:loaded_jsruntime")
-        echoerr("jsruntime is not installed")
-        finish
-    endif
+        if !exists("g:loaded_jsruntime")
+            echoerr("jsruntime is not installed")
+            finish
+        endif
 
 2. if *g:loaded_jsruntime* equals to 0 then jsruntime plugin is installed but not working properly
 
-    if exists("g:loaded_jsruntime") && !g:loaded_jsruntime
-        echoerr("jsruntime is installed, but not working properly")
-        finish
-    endif
+        if exists("g:loaded_jsruntime") && !g:loaded_jsruntime
+            echoerr("jsruntime is installed, but not working properly")
+            finish
+        endif
 
 3. if *g:loaded_jsruntime* equals to 1 then jsruntime plugin is working

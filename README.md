@@ -44,7 +44,7 @@ It provide the following functions
         :call b:jsruntimeEvalScriptInBrowserContext('<html><body onload="console.log(1+2);"><p></p></body></html>')
         //output 3
 
-It aslo provide *g:loaded_jsruntime* to detect whether jsruntime plugin state
+Use *g:loaded_jsruntime* to check jsruntime plugin state
 
 1. if *g:loaded_jsruntime* doesn't exists then jsruntime plugin doesn't installed
 

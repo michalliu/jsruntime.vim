@@ -26,10 +26,10 @@ It provide the following functions
         :echo javascript#runtime#evalScript('a;',1) // we eval this script in a completely new context
         // output undefined
    
-    renew\_context is not guaranteed support, if not support renew\_context will be ignored
-    
-    you can use __javascript\#runtime\#supportLivingContext__ to check whether living_context is support
+    renew\_context is not guaranteed support, if not support renew\_context will be simply ignored, please
 
+    read __javascript\#runtime\#supportLivingContext__ for more.
+    
 2. javascript\#runtime\#evalScriptInBrowserContext    
 
    because we only implement browser interface using PyV8, so if PyV8 is not supported, this function will not exist, check existence before use
@@ -43,3 +43,7 @@ It provide the following functions
     
         :call javascript#runtime#evalScriptInBrowserContext('<html><body onload="console.log(1+2);"><p></p></body></html>')
         //output 3
+
+3. javascript\#runtime\#isSupportLivingContext    
+
+    you can use __javascript\#runtime\#isSupportLivingContext__ to check whether living_context is supported by jsruntime

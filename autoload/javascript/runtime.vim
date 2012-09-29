@@ -3,17 +3,8 @@
 "
 " Version: 1.0
 
-if exists("b:did_jsruntime_plugin")
-    finish
-endif
-
-let b:did_jsruntime_plugin = 1
-
-" jsruntime status
-" not exists jsruntime not loaded
-" 0 loaded but not working
-" 1 everything is ok
-let g:loaded_jsruntime = 0
+let s:save_cpo = &cpo
+set cpo&vim
 
 " plugin path
 let s:install_dir = expand("<sfile>:p:h")
@@ -131,78 +122,68 @@ else
         elseif executable('js')
             let s:js_interpreter = 'js'
         else
-            echoerr("jsruntime.vim complains Not found a valid JS interpreter. Checked for jsc, js (spidermonkey), and node")
+            echoerr 'jsruntime.vim complains Not found a valid JS interpreter. Checked for jsc, js (spidermonkey), and node'
             finish
         endif
     endif
 endif
 
-" no error
-let g:loaded_jsruntime = 1
-
-" expose to other plugin to know
+" expose a flag to other plugin to know does jsruntime support living context
 if s:js_interpreter == 'pyv8'
-    let g:jsruntime_support_living_context = 1
+    let javascript#runtime#supportLivingContext = 1
 else
-    let g:jsruntime_support_living_context = 0
+    let javascript#runtime#supportLivingContext = 0
 endif
 
-" let g:jsruntime_support_living_context = 0
-" let s:js_interpreter='cscript /NoLogo'
-" let s:runjs_ext='wsf'
-"
 " something you need to know as a vim scripter
 " :help CR-used-for-NL
 " http://vim.wikia.com/wiki/Newlines_and_nulls_in_Vim_script
-if !exists('*b:jsruntimeEvalScript')
-    function b:jsruntimeEvalScript(script,...)
-        let l:result=''
-        if !exists("a:1")
-            let l:renew_context = 0
-        else
-            let l:renew_context = a:1
-        endif
+function! javascript#runtime#evalScript(script,...)
+    let result=''
+    if !exists("a:1")
+        let renew_context = 0
+    else
+        let renew_context = a:1
+    endif
 
-        if !g:jsruntime_support_living_context
-            let l:renew_context = 0
-        endif
-
-        " pyv8 eval
-        if s:js_interpreter == 'pyv8'
+    " pyv8 eval
+    if s:js_interpreter == 'pyv8'
     python << EOF
 import vim,json
-if int(vim.eval('l:renew_context')) and jsRuntimeVim:
+if int(vim.eval('renew_context')) and jsRuntimeVim:
     #print 'context cleared'
     jsRuntimeVim.context.leave()
     jsRuntimeVim = VimJavascriptRuntime()
 try:
     ret = jsRuntimeVim.evalScript(vim.eval('a:script'))
+	# javascript function not return anything
+    if not ret:
+        ret = 'undefined'
+    else:
+        ret = str(ret) #call toString methond
+    vim.command('let result=%s' % json.dumps(ret))
 except Exception,e:
-    print 'jsruntime.vim complains, %s' % e
-    ret = None
-if not ret:
-    ret = 'undefined'
-else:
-    ret = str(ret)
-    #ret = str(type(ret))
-vim.command('let l:result=%s' % json.dumps(ret))
-EOF
-        else
-            let s:cmd = s:js_interpreter . ' "' . s:install_dir . '/jsrunner/runjs.' . s:runjs_ext . '"'
-            let l:result = system(s:cmd, a:script)
-            if v:shell_error
-               echoerr 'jsruntime is not working properly. plz visit http://www.vim.org/scripts/script.php?script_id=4050 for more info'
-            end
-        endif
-        return l:result
-    endfunction
-endif
+    vim.command('echoerr \'%s\'' % e)
+    vim.command('let result=\'\'')
 
-if !exists('*b:jsruntimeEvalScriptInBrowserContext') && s:js_interpreter == 'pyv8'
-    function b:jsruntimeEvalScriptInBrowserContext(script)
-        python << EOF
+EOF
+    else
+        let s:cmd = s:js_interpreter . ' "' . s:install_dir . '/jsrunner/runjs.' . s:runjs_ext . '"'
+        let result = system(s:cmd, a:script)
+        if v:shell_error
+           echoerr 'jsruntime is not working properly. plz visit http://www.vim.org/scripts/script.php?script_id=4050 for more info'
+        end
+    endif
+    return result
+endfunction
+
+if s:js_interpreter == 'pyv8'
+    function! javascript#runtime#evalScriptInBrowserContext(script)
+    python << EOF
 NewTab=BrowserTab(url='http://localhost:8080/path?query=key#frag',html=vim.eval("a:script"))
 NewTab.win.fireOnloadEvents()
 EOF
     endfunction
 endif
+
+let &cpo = s:save_cpo

@@ -1,4 +1,4 @@
-jsruntime.vim (Javascript runtime in Vim)
+jsruntime.vim (Run javascript code directly in Vim)
 =============
 
 It use [PyV8](http://code.google.com/p/pyv8/) as javascript interpreter. if PyV8 not supported, it use node, cscript, spiderMonkey as fallbacks. 

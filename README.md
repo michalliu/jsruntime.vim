@@ -24,6 +24,10 @@ You need to check if this library exist
             " your code
         endif
 
+This library is often used with [jsoncodecs.vim](https://github.com/michalliu/jsoncodecs.vim).
+
+        javascript#runtime#evalScript(jsoncodecs#dump_string(getline(1,'$')))
+
 Documentation
 -------------
 

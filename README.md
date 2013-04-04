@@ -21,7 +21,7 @@ You need to check if this library exist
         endtry
         
         if jsruntimePluginAvailable
-            echoerr "available"
+            " your code
         endif
 
 Documentation

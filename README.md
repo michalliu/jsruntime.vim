@@ -8,6 +8,22 @@ Installation
 
 Copy everything inside autoload to __autoload__ directory of your vim
 
+Note
+----
+It is a basic library. It does nothing if no other plugin calls it. If you are a vim plugin developer and want to use this library.
+You need to check if this library exist
+
+        try
+            call javascript#runtime#evalScript("")
+            let jsruntimePluginAvailable = 1
+        catch E117
+            let jsruntimePluginAvailable = 0
+        endtry
+        
+        if jsruntimePluginAvailable
+            echoerr "available"
+        endif
+
 Documentation
 -------------
 

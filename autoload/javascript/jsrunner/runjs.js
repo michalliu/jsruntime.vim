@@ -1,17 +1,26 @@
 /*jshint laxbreak: true */
-
+var print;
 if (typeof require != 'undefined') {
-    print = require('sys').puts;
+    try{
+        print=require('util');
+    }catch(ex){
+        print=require('sys');
+    }
+    print = print.puts;
 }
 
 var alert = function (msg) {
-    print('ALERT: ' + msg); 
+    if (print) {
+        print('ALERT: ' + msg); 
+    }
 };
 
 var console = {
     _out: function (obj, name) {
         name = name || '';
-        print(name + obj);
+        if (print) {
+            print(name + obj);
+        }
     },
     log: function (obj) {
         return console._out(obj);
@@ -93,5 +102,5 @@ var readSTDIN = (function() {
 })();
 
 readSTDIN(function(body) {
-	console.log(eval(body));
+    console.log(eval(body));
 });

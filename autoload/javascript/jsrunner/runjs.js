@@ -57,7 +57,7 @@ var readSTDIN = (function() {
             });
 
             stdin.on('end', function(chunk) {
-                callback(body.join('\n'));
+                callback(body.join(''));
             });
         };
 
@@ -73,7 +73,7 @@ var readSTDIN = (function() {
                 lines.push(stdin.readLine());
             }
 
-            callback(lines.join('\n'));
+            callback(lines.join(''));
         };
 
     // readSTDIN() definition for Spidermonkey
@@ -96,7 +96,7 @@ var readSTDIN = (function() {
             }
 
             input.splice(-emptyCount);
-            callback(input.join('\n'));
+            callback(input.join(''));
         };
     }
 })();

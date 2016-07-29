@@ -1,54 +1,53 @@
 /*jshint laxbreak: true */
 // internal function
-var __print__ = (function () {
+var __print__ = (function() {
     var writer;
-    if (typeof global != 'undefined' &&
-            global.console !== undefined) {
+    if (typeof global != 'undefined' && global.console !== undefined) {
         writer = global.console.log;
-        return function () {
+        return function() {
             if (writer !== undefined) {
                 writer.apply(global.console, arguments);
             }
         };
     }
-    return function () {
+    return function() {
         // dummy function
     };
 })();
 
 // define alert
-var alert = function () {
-    var arr = Array.prototype.slice.call(arguments);
-    arr.splice(0,0,"ALERT: ");
-    __print__.apply(this, arr); 
-};
+var alert = function() {
+        var arr = Array.prototype.slice.call(arguments);
+        arr.splice(0, 0, "ALERT: ");
+        __print__.apply(this, arr);
+    };
 
 // define console
 var console = {
-    _out: function () {
+    _out: function() {
         __print__.apply(this, arguments);
     },
-    log: function () {
+    log: function() {
         return console._out.apply(this, arguments);
     },
-    debug: function (obj) {
+    debug: function(obj) {
         var arr = Array.prototype.slice.call(arguments);
-        arr.splice(0,0,"DEBUG: ");
+        arr.splice(0, 0, "DEBUG: ");
         return console._out.apply(this, arr);
     },
-    info: function (obj) {
+    info: function(obj) {
         var arr = Array.prototype.slice.call(arguments);
-        arr.splice(0,0,"INFO: ");
+        arr.splice(0, 0, "INFO: ");
         return console._out.apply(this, arr);
     },
-    warn: function (obj) {
+    warn: function(obj) {
         var arr = Array.prototype.slice.call(arguments);
-        arr.splice(0,0,"WARN: ");
+        arr.splice(0, 0, "WARN: ");
         return console._out.apply(this, arr);
     },
-    error: function (obj) {
+    error: function(obj) {
         var arr = Array.prototype.slice.call(arguments);
-        arr.splice(0,0,"ERROR: ");
+        arr.splice(0, 0, "ERROR: ");
         return console._out.apply(this, arr);
     }
 };
@@ -63,7 +62,8 @@ var readSTDIN = (function() {
     // readSTDIN() definition for nodejs
     if (typeof process != 'undefined' && process.openStdin) {
         return function readSTDIN(callback) {
-            var stdin = process.openStdin(), body = [];
+            var stdin = process.openStdin(),
+                body = [];
 
             stdin.on('data', function(chunk) {
                 body.push(chunk);
@@ -74,7 +74,7 @@ var readSTDIN = (function() {
             });
         };
 
-    // readSTDIN() definition for Rhino
+        // readSTDIN() definition for Rhino
     } else if (typeof BufferedReader != 'undefined') {
         return function readSTDIN(callback) {
             // setup the input buffer and output buffer
@@ -82,20 +82,19 @@ var readSTDIN = (function() {
                 lines = [];
 
             // read stdin buffer until EOF (or skip)
-            while (stdin.ready()){
+            while (stdin.ready()) {
                 lines.push(stdin.readLine());
             }
 
             callback(lines.join(''));
         };
 
-    // readSTDIN() definition for Spidermonkey
+        // readSTDIN() definition for Spidermonkey
     } else if (typeof readline != 'undefined') {
         return function readSTDIN(callback) {
-            var line,
-              input = [],
-              emptyCount = 0,
-              i;
+            var line, input = [],
+                emptyCount = 0,
+                i;
 
             line = readline();
             while (emptyCount < 25) {
@@ -115,7 +114,7 @@ var readSTDIN = (function() {
 })();
 
 readSTDIN(function(body) {
-    try{
+    try {
         console.log(eval(body));
     } catch (e) {
         console.log(e);
@@ -124,3 +123,4 @@ readSTDIN(function(body) {
         }
     }
 });
+

@@ -5,10 +5,14 @@ It use [PyV8](http://code.google.com/p/pyv8/) as javascript interpreter. if PyV8
 
 Installation
 -------------
-
 Copy everything inside autoload to __autoload__ directory of your vim
 
-Note
+Plugins powered by jsruntime.vim
+----
+1. [sourcebeautify.vim](https://github.com/michalliu/sourcebeautify.vim) source code beautifier
+2. [jsflakes.vim](https://github.com/michalliu/jsflakes.vim)  lint javascript code on the fly
+
+Usage
 ----
 It is a basic library. It does nothing if no other plugin calls it. If you are a vim plugin developer and want to use this library.
 You need to check if this library exist

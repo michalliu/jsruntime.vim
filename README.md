@@ -2,7 +2,7 @@ jsruntime.vim (Run javascript code directly in Vim)
 =============
 Latest Update
 ----------
-Supports Win/Linux/Mac upto Vim 8.0
+Supports Win/Linux/Mac up to Vim 8.0
 
 What's jsruntime
 ----------------

@@ -1,6 +1,11 @@
 jsruntime.vim (Run javascript code directly in Vim)
 =============
+Latest Update
+----------
+Supports Win/Linux/Mac upto Vim 8.0
 
+What's jsruntime
+----------------
 It use [PyV8](http://code.google.com/p/pyv8/) as javascript interpreter. if PyV8 not supported, it use node, cscript, spiderMonkey as fallbacks, it aslo create a browser-based context to execute javascript code if PyV8 is supported.
 
 Installation
